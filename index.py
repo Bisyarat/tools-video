@@ -21,7 +21,7 @@ class index:
                 checkFileExits = os.path.join(folderLocation,filename.split('.')[0] + '.mp4')
                 
                 if os.path.exists(checkFileExits):
-                    print( checkFileExits + ' sudah ada')
+                    print( checkFileExits + ' already exists')
                     
                     continue
                 
