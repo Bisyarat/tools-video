@@ -18,13 +18,23 @@ class index:
                 folderName = regexSearch.create_folder_name(filename)
                 folderLocation = os.path.join(saveFolder , folderName)
                 
-                if not os.path.exists(folderLocation):
+                checkFileExits = os.path.join(folderLocation,filename.split('.')[0] + '.mp4')
+                
+                if os.path.exists(checkFileExits):
+                    print( checkFileExits + ' sudah ada')
+                    
+                    continue
+                
+                else:  
+                    
                     os.makedirs(folderLocation)
                     
-                if not filename.endswith('.mp4') and not filename.endswith('.MP4'):
-                    print('file not mp4, converting file to mp4....')
-                    convertVideo.convert_video_to_mp4(filename,locationFile,saveFolder)
-                else:
-                    shutil.move(locationFile, os.path.join(folderLocation, os.path.basename(filename)))
+                    if not filename.endswith('.mp4') and not filename.endswith('.MP4'):
+                        print('file' + filename + ' not mp4, converting file to mp4....')
+                        convertVideo.convert_video_to_mp4(filename,locationFile,folderLocation)
+                    
+                    else:
+                        print('doing duplicate file ' + filename + ' to folder result....')
+                        shutil.copy(locationFile, os.path.join(folderLocation, os.path.basename(filename)))
     
     open_dir_folder(rootFolder, saveFolder)
