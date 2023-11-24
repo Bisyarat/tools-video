@@ -1,2 +1,4 @@
 # Ignore semua direktori
-dir/*
+result
+video-bahasa-isyarat
+__pycache__
