@@ -21,6 +21,7 @@ def open_dir_folder(rootFolder,saveFolder):
             if folderName is False:
                 with open(errorLogFile, 'a') as errorLog:
                     errorLog.write('file {} pada folder {} tidak sesuai dengan format'.format(filename,subfolder))
+                    continue #lanjutkan ke file baru jika nama file tidak sesuai
             
             folderLocation = os.path.join(saveFolder , folderName)
 
@@ -31,7 +32,7 @@ def open_dir_folder(rootFolder,saveFolder):
                 if os.path.exists(checkFileExits):
 
                     print(checkFileExits + ' already exists')
-                    continue
+                    continue #lanjutkan ke file baru jika nama file sudah ada
             else:
                 os.makedirs(folderLocation)
 
