@@ -1,5 +1,6 @@
 import os   
 import moviepy.editor as moviepy
+import subprocess
 
 class convertVideo:
     
@@ -14,3 +15,14 @@ class convertVideo:
         converter = converter.set_audio(None)
         
         converter.write_videofile(output_path ,  codec='libx264', audio_codec='aac',bitrate='1000k')              
+    
+    def convert_video_using_ffmpeg(filename,videoFile, saveFolder):
+
+        bitrate = '1000k'
+        output_filename = filename.split('.')[0] + ".mp4"
+        output = os.path.join(saveFolder, output_filename)
+        
+        #convert file to mp4 and remove audio
+        ffmpeg_command = f'ffmpeg -i {videoFile} -b:v "{bitrate}" -c:a copy -an {output}'
+        subprocess.run(ffmpeg_command, shell=True)
+
