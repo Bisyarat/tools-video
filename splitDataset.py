@@ -16,9 +16,9 @@ def move_file(files, sourcePath, toFolder):
     if not os.path.exists(toFolder):
         os.makedirs(toFolder)
 
-    for filename in files:
-        sourceFilePath = os.path.join(sourcePath,filename)
-        toFolderPath = os.path.join(toFolder,filename)
+    for file in files:
+        sourceFilePath = os.path.join(sourcePath,file)
+        toFolderPath = os.path.join(toFolder,file)
 
         shutil.copy(sourceFilePath,toFolderPath)
 
