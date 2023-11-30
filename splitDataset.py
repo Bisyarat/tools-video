@@ -35,10 +35,10 @@ for subFolder in os.listdir(datasetFolder):
 
         folderPath = os.path.join(subFolderPath,folder)
 
-        trainDataFile, testDataFile = train_test_split(os.listdir(folderPath), test_size=sizeTestFolder)
-        testDataFile , devDataFile  = train_test_split(testDataFile, test_size=sizeDevFolder)
+        trainDataFiles, testDataFiles = train_test_split(os.listdir(folderPath), test_size=sizeTestFolder)
+        testDataFiles , devDataFiles  = train_test_split(testDataFiles, test_size=sizeDevFolder)
 
-        move_file(trainDataFile, folderPath, train_path)
-        move_file(testDataFile, folderPath, test_path)
-        move_file(devDataFile, folderPath, dev_path)
+        move_file(trainDataFiles, folderPath, train_path)
+        move_file(testDataFiles, folderPath, test_path)
+        move_file(devDataFiles, folderPath, dev_path)
 
