@@ -6,7 +6,6 @@ from sklearn.model_selection import train_test_split
 datasetFolder = 'dataset' # tempat dataset di simpan
 saveFolder = 'splitDataset' #lokasi tempat penyimpanan pembagian dataset
 
-
 sizeTestFolder = 0.2 #20%
 sizeDevFolder = 0.1 #10%
 #size TrainFolder menjadi 100% - (20 - 10)%
@@ -22,6 +21,10 @@ def move_file(files, sourcePath, toFolder):
 
         shutil.copy(sourceFilePath,toFolderPath)
 
+if os.path.exists(saveFolder):
+    # menghapus folderPath pada variable saveFolder jika sudah ada, 
+    # agar tidak terjadi duplikat data ketika dataset di split ulang
+    shutil.rmtree(saveFolder)
 
 for subFolder in os.listdir(datasetFolder):
 
