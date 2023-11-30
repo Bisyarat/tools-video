@@ -3,15 +3,15 @@ import os
 from ConvertVideo import convertVideo
 from RegexSearch import regexSearch
 
-rootFolder = '../video-bahasa-isyarat' # tempat penyimpanan video
+rootFolder = 'dataset' # tempat penyimpanan video
 saveFolder = 'result' #lokasi penyimpanan video
 errorLogFile = 'error_file_name.txt'  #error log 
 
 
 def open_dir_folder(rootFolder,saveFolder):
-
+    
     for foldername , subfolder , filenames in os.walk(rootFolder):
-        
+        print(filenames)
         for filename in filenames: 
 
             locationFile = os.path.join(foldername,filename)
@@ -20,7 +20,7 @@ def open_dir_folder(rootFolder,saveFolder):
             
             if folderName is False:
                 with open(errorLogFile, 'a') as errorLog:
-                    errorLog.write('file {} pada folder {} tidak sesuai dengan format'.format(filename,subfolder))
+                    errorLog.write('file {} pada folder {} tidak sesuai dengan format\n'.format(filename,locationFile))
                     continue #lanjutkan ke file baru jika nama file tidak sesuai
             
             folderLocation = os.path.join(saveFolder , folderName)
