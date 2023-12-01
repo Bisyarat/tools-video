@@ -7,8 +7,8 @@ datasetFolder = 'dataset' # tempat dataset di simpan
 saveFolder = 'splitDataset' #lokasi tempat penyimpanan pembagian dataset
 
 sizeTestFolder = 0.2 #20%
-sizeDevFolder = 0.1 #10%
-#size TrainFolder menjadi 100% - (20 - 10)%
+#size TrainFolder menjadi 100% - (20%)
+sizeDevFolder = 0.3 # (100- 20)% / (1/3) 
 
 def move_file(files, sourcePath, toFolder):
 
