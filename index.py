@@ -3,40 +3,44 @@ import os
 from ConvertVideo import convertVideo
 from RegexSearch import regexSearch
 
-rootFolder = 'dataset' # tempat penyimpanan video
-saveFolder = 'result' #lokasi penyimpanan video
+rootFolder = 'video' # tempat penyimpanan video
+saveFolder = 'convert-video-avi' #lokasi penyimpanan video
 errorLogFile = 'error_file_name.txt'  #error log 
 
 
 def open_dir_folder(rootFolder,saveFolder):
     
-    for foldername , subfolder , filenames in os.walk(rootFolder):
-        print(filenames)
-        for filename in filenames: 
+    for subFolder in os.listdir(rootFolder):
 
-            locationFile = os.path.join(foldername,filename)
+        FOLDER_PATH = os.path.join(rootFolder,subFolder)
+        for folder in os.listdir(FOLDER_PATH):
 
-            folderName = regexSearch.create_folder_name(filename)
-            
-            if folderName is False:
-                with open(errorLogFile, 'a') as errorLog:
-                    errorLog.write('file {} pada folder {} tidak sesuai dengan format\n'.format(filename,locationFile))
-                    continue #lanjutkan ke file baru jika nama file tidak sesuai
-            
-            folderLocation = os.path.join(saveFolder , folderName)
+            if folder != 'checked' and folder != 'Checked':
+                continue
 
-            checkFileExits = os.path.join(folderLocation,filename.split('.')[0] + '.mp4')
+            CHECKED_FOLDER = os.path.join(FOLDER_PATH, folder)
 
-            if os.path.exists(folderLocation):
-                
-                if os.path.exists(checkFileExits):
+            for categoryFolder in os.listdir(CHECKED_FOLDER):
 
-                    print(checkFileExits + ' already exists')
-                    continue #lanjutkan ke file baru jika nama file sudah ada
-            else:
-                os.makedirs(folderLocation)
+                CATEGORY_FOLDER  = os.path.join(CHECKED_FOLDER, categoryFolder)
 
-            convertVideo.convert_video_using_ffmpeg(filename,locationFile,folderLocation)
-            print('{} sudah berhasil di convert dan di simpan di {}'.format(filename ,folderName))
+                for filename in os.listdir(CATEGORY_FOLDER):
+
+                    folderName = (regexSearch.create_folder_name(filename)).lower()
+                    folderLocation = os.path.join(CATEGORY_FOLDER,filename)
+                    print(folderLocation)
+                    if folderName is False:
+                        with open(errorLogFile, 'a') as errorLog:
+                            errorLog.write('file {} pada folder {} tidak sesuai dengan format\n'.format(filename,CATEGORY_FOLDER))
+                            continue #lanjutkan ke file baru jika nama file tidak sesuai
+
+                    SAVE_LOCATION = os.path.join(saveFolder , folderName)
+
+                    if not os.path.exists(SAVE_LOCATION):
+                        os.makedirs(SAVE_LOCATION)
+
+                    convertVideo.convert_video_using_ffmpeg(filename,folderLocation,SAVE_LOCATION)
+                    print('{} sudah berhasil di convert dan di simpan di {}'.format(filename ,SAVE_LOCATION))
+
 
 open_dir_folder(rootFolder, saveFolder)

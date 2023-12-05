@@ -5,9 +5,7 @@ import subprocess
 class convertVideo:
     
     def convert_video_to_mp4(filename,videoFile, saveFolder):
-        
-        # sizeFile = os.path.getsize(videoFile) / (1024 * 1024)
-        
+    
         output_filename = filename.split('.')[0] + ".mp4"
         output_path = os.path.join(saveFolder, output_filename)
         
@@ -18,11 +16,17 @@ class convertVideo:
     
     def convert_video_using_ffmpeg(filename,videoFile, saveFolder):
 
-        bitrate = '1000k'
-        output_filename = filename.split('.')[0] + ".mp4"
-        output = os.path.join(saveFolder, output_filename)
+        BITRATE = '3000k'
+        _FILENAME = filename.split('.')[0]
         
+        OUTPUT_FILENAME = _FILENAME.lower() + '.avi'
+
+        OUTPUT = os.path.join(saveFolder, OUTPUT_FILENAME)
+        
+        if os.path.exists(OUTPUT):
+            return
+
         #convert file to mp4 and remove audio
-        ffmpeg_command = f'ffmpeg -i {videoFile} -b:v "{bitrate}" -c:a copy -an {output}'
+        ffmpeg_command = f'ffmpeg -i {videoFile} -c:v libx264 -b:v "{BITRATE}" -c:a copy -an {OUTPUT}'
         subprocess.run(ffmpeg_command, shell=True)
 
