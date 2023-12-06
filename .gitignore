@@ -8,3 +8,5 @@ video
 dataset
 splitDataset
 convert-video-avi
+log.txt
+extract-images
